@@ -9,17 +9,19 @@ public class LevelInstance : MonoBehaviour
     [System.NonSerialized]
     public PlayerScript Player;
 
+    [System.NonSerialized]
+    public CameraScript Camera;
+
     public float TotalTimeSeconds = 20;
 
     void Awake()
     {
         Instance = this;
+        Player = GameObject.FindObjectOfType<PlayerScript>();
+        Camera = GameObject.FindObjectOfType<CameraScript>();
     }
 
-    void Start()
-    {
-        Player = GameObject.FindObjectOfType<PlayerScript>();
-    }
+    void Start() { }
 
     public void WinLevel()
     {
