@@ -8,10 +8,12 @@ public class PhysicsObject : MonoBehaviour
 {
 
     public float minGroundNormalY = .65f;
+    public float minWallNormalX = .65f;
     public float gravityModifier = 1f;
 
     protected Vector2 targetVelocity;
     protected bool grounded;
+    protected bool againstWall;
     protected Vector2 groundNormal;
     protected Rigidbody2D rb2d;
     protected Vector2 velocity;
@@ -52,6 +54,7 @@ public class PhysicsObject : MonoBehaviour
         velocity.x = targetVelocity.x;
 
         grounded = false;
+        againstWall = false;
 
         Vector2 deltaPosition = velocity * Time.deltaTime;
 
@@ -90,6 +93,11 @@ public class PhysicsObject : MonoBehaviour
                         groundNormal = currentNormal;
                         currentNormal.x = 0;
                     }
+                }
+
+                if (currentNormal.x > minWallNormalX || currentNormal.x < - minWallNormalX)
+                {
+                    againstWall = true;
                 }
 
                 float projection = Vector2.Dot(velocity, currentNormal);
