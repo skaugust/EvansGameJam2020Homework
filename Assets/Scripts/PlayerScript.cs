@@ -11,7 +11,7 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
-        if(transform.position.y <= -20)
+        if (transform.position.y <= -20)
         {
             Kill();
         }
@@ -28,15 +28,6 @@ public class PlayerScript : MonoBehaviour
             CurrentCheckPoint = other.gameObject.GetComponent<CheckPointScript>();
         }
         if (other.gameObject.tag == "KillOnContact")
-        {
-            Kill();
-        }
-    }
-
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        Debug.Log("test");
-        if (col.otherCollider.gameObject.tag == "KillOnContact")
         {
             Kill();
         }
