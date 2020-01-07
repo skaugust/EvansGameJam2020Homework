@@ -12,7 +12,8 @@ public class LevelInstance : MonoBehaviour
     [System.NonSerialized]
     public CameraScript Camera;
 
-    public float TotalTimeSeconds = 20;
+    [System.NonSerialized]
+    public CheckPointScript Spawn;
 
     void Awake()
     {
@@ -21,7 +22,11 @@ public class LevelInstance : MonoBehaviour
         Camera = GameObject.FindObjectOfType<CameraScript>();
     }
 
-    void Start() { }
+    void Start()
+    {
+        Spawn = GameObject.Find("SpawnPoint").GetComponent<CheckPointScript>();
+        Spawn.Activate();
+    }
 
     public void WinLevel()
     {
@@ -30,6 +35,6 @@ public class LevelInstance : MonoBehaviour
 
     public void LoseLevel()
     {
-        SceneUtils.RestartScene();
+        Player.Kill();
     }
 }

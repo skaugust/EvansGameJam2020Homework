@@ -8,16 +8,22 @@ public class TimerScript : MonoBehaviour
     private TextMeshProUGUI label;
     private int previousSeconds;
     private float startTicks;
+    private int availableTime;
 
     void Start()
     {
         label = GetComponent<TextMeshProUGUI>();
+    }
+
+    public void ResetTime(int AllowedTime)
+    {
+        availableTime = AllowedTime;
         startTicks = Time.time;
     }
 
     void Update()
     {
-        int newSeconds = (int)Mathf.Floor(LevelInstance.Instance.TotalTimeSeconds - (Time.time - startTicks));
+        int newSeconds = (int)Mathf.Floor(availableTime - (Time.time - startTicks));
         if (newSeconds != previousSeconds)
         {
             previousSeconds = newSeconds;

@@ -5,9 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
+    public CheckPointScript CurrentCheckPoint;
+
     void Start() { }
 
-    void Update() { }
+    void Update()
+    {
+        if(transform.position.y <= -20)
+        {
+            Kill();
+        }
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -15,5 +23,27 @@ public class PlayerScript : MonoBehaviour
         {
             LevelInstance.Instance.WinLevel();
         }
+        if (other.gameObject.GetComponent<CheckPointScript>() != null)
+        {
+            CurrentCheckPoint = other.gameObject.GetComponent<CheckPointScript>();
+        }
+        if (other.gameObject.tag == "KillOnContact")
+        {
+            Kill();
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        Debug.Log("test");
+        if (col.otherCollider.gameObject.tag == "KillOnContact")
+        {
+            Kill();
+        }
+    }
+
+    public void Kill()
+    {
+        CurrentCheckPoint.Activate();
     }
 }
