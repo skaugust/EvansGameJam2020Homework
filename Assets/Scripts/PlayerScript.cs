@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
-    public CheckPointScript CurrentCheckPoint;
-
     void Start() { }
 
     void Update()
@@ -25,7 +23,7 @@ public class PlayerScript : MonoBehaviour
         }
         if (other.gameObject.GetComponent<CheckPointScript>() != null)
         {
-            CurrentCheckPoint = other.gameObject.GetComponent<CheckPointScript>();
+            LevelInstance.Instance.SetCurrentCheckPoint(other.gameObject.GetComponent<CheckPointScript>());
         }
         if (other.gameObject.tag == "KillOnContact")
         {
@@ -35,6 +33,6 @@ public class PlayerScript : MonoBehaviour
 
     public void Kill()
     {
-        CurrentCheckPoint.Activate();
+        LevelInstance.Instance.LoseLevel();
     }
 }
