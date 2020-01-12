@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class LevelInstance : MonoBehaviour
 {
@@ -12,16 +13,24 @@ public class LevelInstance : MonoBehaviour
     [System.NonSerialized]
     public CameraScript Camera;
 
-    public float TotalTimeSeconds = 20;
+    [System.NonSerialized]
+    public List<CheckPointScript> AllCheckPoints = new List<CheckPointScript>();
+
+    private CheckPointScript CurrentCheckPoint;
 
     void Awake()
     {
         Instance = this;
         Player = GameObject.FindObjectOfType<PlayerScript>();
         Camera = GameObject.FindObjectOfType<CameraScript>();
+        AllCheckPoints.AddRange(GameObject.FindObjectsOfType<CheckPointScript>());
+        CurrentCheckPoint = AllCheckPoints.First(cp => cp.IsSpawn);
     }
 
-    void Start() { }
+    void Start()
+    {
+        CurrentCheckPoint.Activate();
+    }
 
     public void WinLevel()
     {
@@ -30,6 +39,13 @@ public class LevelInstance : MonoBehaviour
 
     public void LoseLevel()
     {
-        SceneUtils.RestartScene();
+        CurrentCheckPoint.Activate();
+    }
+
+    public void SetCurrentCheckPoint(CheckPointScript checkPoint)
+    {
+        CurrentCheckPoint.SetTriggered(false);
+        CurrentCheckPoint = checkPoint;
+        CurrentCheckPoint.SetTriggered(true);
     }
 }
