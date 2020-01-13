@@ -2,30 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerWallCling : PhysicsObject
+public class PlayerWallCling : MonoBehaviour
 {
+    //PlayerPlatformerController platformerController;
+    //Rigidbody2D physicsBody;
+    //// Start is called before the first frame update
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //public bool grabbing { get; protected set; }
+    //void Start()
+    //{
+    //    platformerController = gameObject.GetComponent<PlayerPlatformerController>();
+    //    physicsBody = gameObject.GetComponent<Rigidbody2D>();
+    //}
 
-    // Update is called once per frame
-    void Update()
-    {
-        Debug.LogWarning($"Againstwall: {againstWall}");
-        Debug.LogWarning($"Grounded: {grounded}");
-        if ( againstWall)
-        {
-            transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1, 1));
-            Debug.LogWarning("Boing");
-        }
+    //// Update is called once per frame
+    //void FixedUpdate()
+    //{
+    //    Debug.LogWarning($"Againstwall: {platformerController.wallDirection}");
+    //    Debug.LogWarning($"Grounded: {platformerController.grounded}");
 
-        var clinging = false;
-        if (clinging && Input.GetButtonDown("Jump"))
-        {
-            // jump 45 degrees away from wall
-        }
-    }
+    //    if (platformerController.againstWall && !grabbing && Input.GetButtonDown("Fire1"))
+    //    {
+    //        Debug.LogWarning("Boop");
+    //        physicsBody.AddForce(
+    //            new Vector2(
+    //                platformerController.wallDirection ==
+    //                    PhysicsObject.WallDirection.Left ? 1 : -1,
+    //                0
+    //            )
+    //        );
+    //    }
+    //}
 }
