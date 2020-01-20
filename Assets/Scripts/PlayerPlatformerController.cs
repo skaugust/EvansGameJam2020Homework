@@ -23,23 +23,16 @@ public class PlayerPlatformerController : PhysicsObject
     {
         Vector2 move = Vector2.zero;
 
-        bool shouldStartGrabbing = againstWall && !grabbing && Input.GetButtonDown("Fire1");
+        bool shouldStartGrabbing = againstWall && !grabbing && Input.GetKeyDown(KeyCode.LeftShift);
+        bool grabIsReleased = grabbing && Input.GetKeyUp(KeyCode.LeftShift);
 
+        if (grabIsReleased)
+        {
+            grabbing = false;
+        }
         if (shouldStartGrabbing)
         {
-            Debug.Log("Beep");
             grabbing = true;
-        }
-        
-        
-        if (grabbing)
-        {
-            Debug.Log("grab!");
-            move.x = 0;
-        }
-        else
-        {
-            move.x = Input.GetAxis("Horizontal");
         }
 
         if (Input.GetButtonDown("Jump") && (grounded || grabbing))
@@ -57,8 +50,15 @@ public class PlayerPlatformerController : PhysicsObject
         {
             velocity.y = 0;
         }
-        Debug.Log($"{velocity} {grabbing}");
 
+        if (grabbing)
+        {
+            move.x = 0;
+        }
+        else
+        {
+            move.x = Input.GetAxis("Horizontal");
+        }
 
         bool flipSprite = (spriteRenderer.flipX ? (move.x > 0.01f) : (move.x < 0.01f));
         if (flipSprite)
